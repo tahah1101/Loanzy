@@ -103,11 +103,17 @@ def get_identity():
 @app.route('/balance', methods=['GET'])
 def get_balance():
   try:
-    balance_response = client.Accounts.balance.get(access_token)
+    # Pull real-time balance information for each account associated
+    # with the Item
+    response = client.Accounts.balance.get(access_token)
+    accounts = response['accounts']
   except plaid.errors.PlaidError as e:
     return jsonify({'error': {'display_message': e.display_message, 'error_code': e.code, 'error_type': e.type } })
-  pretty_print_response(balance_response)
-  return jsonify({'error': None, 'balance': balance_response})
+  pretty_print_response(response)
+  return jsonify({'error': None, 'balance': response})
+
+
+
 
 # Retrieve an Item's accounts
 # https://plaid.com/docs/#accounts
