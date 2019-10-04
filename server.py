@@ -45,7 +45,6 @@ def index():
   )
 
 access_token = None
-
 # Exchange token flow - exchange a Link public_token for
 # an API access_token
 # https://plaid.com/docs/#exchange-token-flow
@@ -108,9 +107,6 @@ def get_balance():
     return jsonify({'error': {'display_message': e.display_message, 'error_code': e.code, 'error_type': e.type } })
   pretty_print_response(balance_response)
   return jsonify({'error': None, 'balance': balance_response})
-
-
-
 
 # Retrieve an Item's accounts
 # https://plaid.com/docs/#accounts
